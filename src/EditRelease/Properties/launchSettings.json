@@ -2,7 +2,7 @@
   "profiles": {
     "EditRelease": {
       "commandName": "Project",
-      "commandLineArgs": "-i 49074289"
+      "commandLineArgs": "-i 49074289 -b \"TEST\""
     }
   }
 }

@@ -20,20 +20,20 @@ namespace EditRelease
         [Option(shortName: 'n', longName: "name", Required = false, HelpText = "The name of the release.")]
         public string Name { get; set; }
 
-        [Option(shortName: 'm', longName: "namemode", Required = false, HelpText = "Whether to add or replace the release name.")]
-        public string NameMode { get; set; }
+        [Option(shortName: 'm', longName: "replacename", Required = false, HelpText = "Set true to replace the release name, false to add to the release name.", Default = false)]
+        public bool ReplaceName { get; set; }
 
         [Option(shortName: 'd', longName: "draft", Required = false, HelpText = "Set true makes the release a draft, false publishes the release.")]
-        public bool Draft { get; set; }
+        public bool? Draft { get; set; }
 
         [Option(shortName: 'p', longName: "prerelease", Required = false, HelpText = "Set true to identify the release as a pre-release, false to identify the release as a full release.")]
-        public bool Prerelease { get; set; }
+        public bool? Prerelease { get; set; }
 
         [Option(shortName: 'b', longName: "body", Required = false, HelpText = "Text for the body of the release.")]
         public string Body { get; set; }
 
-        [Option(shortName: 'o', longName: "bodymode", Required = false, HelpText = "Whether to add or replace the release body.")]
-        public string BodyMode { get; set; }
+        [Option(shortName: 'o', longName: "replacebody", Required = false, HelpText = "Set true to replace the release body, false to add to the release body.", Default = false)]
+        public bool ReplaceBody { get; set; }
 
         [Option(shortName: 'f', longName: "files", Separator = ',', Required = false, HelpText = "Comma separated list of files whose content will be added after Body.")]
         public IEnumerable<string> Files { get; set; }

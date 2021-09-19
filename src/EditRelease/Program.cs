@@ -2,6 +2,7 @@
 using Octokit;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -19,6 +20,8 @@ namespace EditRelease
 
         private static async Task<int> RunActionAsync(Options options)
         {
+            Console.WriteLine($"{Assembly.GetExecutingAssembly().GetName().Name} v{Assembly.GetExecutingAssembly().GetName().Version} started...");
+
             string repo = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY");
             if (string.IsNullOrWhiteSpace(repo) || !repo.Contains("/"))
             {
@@ -27,15 +30,16 @@ namespace EditRelease
             }
 
 #if DEBUG
-            options.Token = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+            if (string.IsNullOrWhiteSpace(options.Token))
+                options.Token = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
 #endif
+
             if (string.IsNullOrWhiteSpace(options.Token))
             {
                 Console.WriteLine("Error: Authentication token not found, use either GITHUB_TOKEN or a Personal Access Token.");
                 return -2;
             }
 
-            Console.WriteLine($"{Assembly.GetExecutingAssembly().GetName().Name} v{Assembly.GetExecutingAssembly().GetName().Version} started...");
             Console.WriteLine($"Repository: {repo}, Release Id: {options.ReleaseId}");
 
             try
@@ -59,7 +63,21 @@ namespace EditRelease
                 Console.WriteLine($"Release Found - Id: {release.Id}, Tag: {release.TagName}, Author: {release.Author.Login}.");
 
                 ReleaseUpdate updateRelease = release.ToUpdate();
-                updateRelease.Body = $"{release.Body}{Environment.NewLine}{Environment.NewLine}Test";
+
+                if (options.Draft.HasValue)
+                    updateRelease.Draft = options.Draft.Value;
+
+                if (options.Prerelease.HasValue)
+                    updateRelease.Prerelease = options.Prerelease.Value;
+
+                if (!string.IsNullOrWhiteSpace(options.Name))
+                    updateRelease.Name = options.ReplaceName ? options.Name : $"{release.Name} {options.Name}";
+
+                if (!string.IsNullOrWhiteSpace(options.Body))
+                    updateRelease.Body = options.ReplaceBody ? options.Body : $"{release.Body}{BodySpacing(options.Spacing)}{options.Body}";
+
+                if (options.Files?.Any() == true)
+                    updateRelease.Body = AddFilesToBody(updateRelease.Body, options);
 
                 var result = await client.Repository.Release.Edit(owner, repoName, options.ReleaseId, updateRelease).ConfigureAwait(false);
                 if (result != null)
@@ -79,6 +97,22 @@ namespace EditRelease
                 Console.WriteLine($"Error: {ex.GetType()} - {ex.Message}");
                 return -3; // unhandled error
             }
+        }
+
+        private static string BodySpacing(int spacing)
+        {
+            string value = string.Empty;
+            while (spacing > 0)
+            {
+                value = $"{value}{Environment.NewLine}{Environment.NewLine}";
+                spacing--;
+            }
+            return value;
+        }
+
+        private static string AddFilesToBody(string body, Options options)
+        {
+            throw new NotImplementedException();
         }
     }
 }
