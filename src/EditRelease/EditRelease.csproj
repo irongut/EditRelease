@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>Taranis.EditRelease</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Irongut</Authors>
+    <Company>Taranis Software</Company>
+    <Description>A GitHub Action that can edit an already created release.</Description>
+    <Copyright>Copyright © 2021 Taranis Software</Copyright>
+    <PackageProjectUrl>https://github.com/irongut/EditRelease</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/irongut/EditRelease</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Octokit" Version="0.50.0" />
+  </ItemGroup>
+
+</Project>
