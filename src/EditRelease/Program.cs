@@ -1,9 +1,10 @@
 ﻿using CommandLine;
 using Octokit;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EditRelease
@@ -73,8 +74,15 @@ namespace EditRelease
                 if (!string.IsNullOrWhiteSpace(options.Name))
                     updateRelease.Name = options.ReplaceName ? options.Name : $"{release.Name} {options.Name}";
 
+                if (options.ReplaceBody)
+                    updateRelease.Body = string.Empty;
+
                 if (!string.IsNullOrWhiteSpace(options.Body))
-                    updateRelease.Body = options.ReplaceBody ? options.Body : $"{release.Body}{BodySpacing(options.Spacing)}{options.Body}";
+                {
+                    updateRelease.Body = string.IsNullOrWhiteSpace(updateRelease.Body)
+                        ? $"{options.Body}{Environment.NewLine}"
+                        : $"{updateRelease.Body}{BodySpacing(options.Spacing)}{options.Body}{Environment.NewLine}";
+                }
 
                 if (options.Files?.Any() == true)
                     updateRelease.Body = AddFilesToBody(updateRelease.Body, options);
@@ -104,7 +112,7 @@ namespace EditRelease
             string value = string.Empty;
             while (spacing > 0)
             {
-                value = $"{value}{Environment.NewLine}{Environment.NewLine}";
+                value = $"{value}{Environment.NewLine}";
                 spacing--;
             }
             return value;
@@ -112,7 +120,15 @@ namespace EditRelease
 
         private static string AddFilesToBody(string body, Options options)
         {
-            throw new NotImplementedException();
+            string spacing = BodySpacing(options.Spacing);
+            StringBuilder bodyText = new(body);
+            foreach (string filename in options.Files)
+            {
+                if (bodyText.Length > 0)
+                    bodyText.Append(spacing);
+                bodyText.Append(File.ReadAllText(filename));
+            }
+            return bodyText.ToString();
         }
     }
 }
