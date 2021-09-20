@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/irongut/EditRelease</PackageProjectUrl>
     <RepositoryUrl>https://github.com/irongut/EditRelease</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
