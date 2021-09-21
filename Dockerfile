@@ -13,7 +13,7 @@ LABEL homepage="https://github.com/irongut/EditRelease"
 
 # Label as GitHub Action
 LABEL com.github.actions.name="Edit Release"
-LABEL com.github.actions.description="A GitHub Action for editing release details."
+LABEL com.github.actions.description="A GitHub Action for editing an existing release."
 LABEL com.github.actions.icon="edit"
 LABEL com.github.actions.color="purple"
 
