@@ -1,0 +1,32 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: CI Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .Net
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore Dependencies
+      run: dotnet restore src/EditRelease.sln
+
+    - name: Build EditRelease
+      run: dotnet build src/EditRelease.sln --configuration Release --no-restore
+
+    - name: .Net Test
+      run: dotnet src/EditRelease/bin/Release/net5.0/EditRelease.dll
+
+    - name: Test Action
+      uses: irongut/EditRelease@master
