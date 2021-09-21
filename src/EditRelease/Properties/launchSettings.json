@@ -2,10 +2,10 @@
   "profiles": {
     "EditRelease": {
       "commandName": "Project",
-      "commandLineArgs": "-i 49074289 -n \"Test Release\" -d false -p true -b \"TEST RELEASE\" -f \"../../../test-releasenotes.md,../../../test-testsummary.md\" -s 3"
+      "commandLineArgs": "--id 49074289 --name \"Test\" --replacename false --draft false --prerelease true --body \"TEST RELEASE\" --replacebody false --files \"../../../test-releasenotes.md,../../../test-testsummary.md\" --spacing 2"
     },
     "Docker (1)": {
-        "commandName": "Docker"
+      "commandName": "Docker"
     }
   }
 }
