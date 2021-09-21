@@ -84,7 +84,7 @@ namespace EditRelease
                         : $"{updateRelease.Body}{BodySpacing(options.Spacing)}{options.Body}{Environment.NewLine}";
                 }
 
-                if (options.Files?.Any() == true)
+                if (options.Files?.Any() == true && !string.IsNullOrWhiteSpace(options.Files.First()))
                     updateRelease.Body = AddFilesToBody(updateRelease.Body, options);
 
                 var result = await client.Repository.Release.Edit(owner, repoName, options.ReleaseId, updateRelease).ConfigureAwait(false);
