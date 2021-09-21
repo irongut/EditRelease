@@ -26,7 +26,4 @@ jobs:
       run: dotnet build src/EditRelease.sln --configuration Release --no-restore
 
     - name: .Net Test
-      run: dotnet src/EditRelease/bin/Release/net5.0/EditRelease.dll --help
-
-    - name: Test Action
-      uses: irongut/EditRelease@master
+      run: dotnet src/EditRelease/bin/Release/net5.0/EditRelease.dll --version
