@@ -27,9 +27,6 @@ jobs:
     - name: Build EditRelease
       run: dotnet build src/EditRelease.sln --configuration Release --no-restore
 
-    - name: Test
-      run: dotnet src/EditRelease/bin/Release/net5.0/EditRelease.dll
-
   deploy:
     name: Deploy to GHCR
     needs: [build]
