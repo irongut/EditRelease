@@ -2,6 +2,8 @@
 
 A GitHub Action for editing an existing release. Edit the Name, Draft status and Pre-release status of a release as well as adding text and the content of markdown files to the Body of a release.
 
+As a Docker based action Edit Release requires a Linux runner, see [Types of Action](https://docs.github.com/en/actions/creating-actions/about-custom-actions#types-of-actions).
+
 ## Inputs
 
 #### `token`
