@@ -56,7 +56,7 @@ Edit Release has no outputs other than console messages and the edited release.
 
 ```yaml
 name: Edit Release
-uses: irongut/EditRelease@v1.0.0
+uses: irongut/EditRelease@v1.1.0
 with:
   token: ${{ secrets.GITHUB_TOKEN }}
   id: ${{ github.event.release.id }}
@@ -109,7 +109,7 @@ jobs:
       run: cp coverage/**/coverage.cobertura.xml coverage/coverage.cobertura.xml
 
     - name: Create Test Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
+      uses: irongut/CodeCoverageSummary@v1.2.0
       with:
         filename: coverage/coverage.cobertura.xml
         badge: true
@@ -150,7 +150,7 @@ jobs:
       run: nuget push **/*.nupkg -source GitHub -SkipDuplicate
 
     - name: Add Test Report to Release
-      uses: irongut/EditRelease@v1.0.0
+      uses: irongut/EditRelease@v1.1.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         id: ${{ github.event.release.id }}
