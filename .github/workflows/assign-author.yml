@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Auto Assign PR
-      uses: samspills/assign-pr-to-author@v1.0.1
+      uses: samspills/assign-pr-to-author@v1.0.2
       with:
         repo-token: '${{ secrets.GITHUB_TOKEN }}'
