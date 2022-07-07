@@ -34,6 +34,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write   # Used for identity challenge with sigstore/fulcio
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
