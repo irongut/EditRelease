@@ -4,11 +4,11 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <PackageId>Taranis.EditRelease</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Irongut</Authors>
     <Company>Taranis Software</Company>
     <Description>A GitHub Action for editing an existing release.</Description>
-    <Copyright>Copyright © 2021 Taranis Software</Copyright>
+    <Copyright>Copyright © 2021 - 2022 Taranis Software</Copyright>
     <PackageProjectUrl>https://github.com/irongut/EditRelease</PackageProjectUrl>
     <RepositoryUrl>https://github.com/irongut/EditRelease</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
