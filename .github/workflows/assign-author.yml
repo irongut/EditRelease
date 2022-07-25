@@ -8,7 +8,13 @@ jobs:
   assign-author:
     runs-on: ubuntu-latest
     steps:
+    
+    - name: Harden Runner
+      uses: step-security/harden-runner@74b568e8591fbb3115c70f3436a0c6b0909a8504
+      with:
+        egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
     - name: Auto Assign PR
-      uses: samspills/assign-pr-to-author@v1.0.2
+      uses: samspills/assign-pr-to-author@b313feb250ff414d3aff26525b986f080ee7bd7a
       with:
         repo-token: '${{ secrets.GITHUB_TOKEN }}'

@@ -5,10 +5,22 @@ name: PR Labeler
 on: 
   pull_request_target:
 
+permissions:
+  contents: read
+
 jobs:
   label:
+    permissions:
+      contents: read  # for actions/labeler to determine modified files
+      pull-requests: write  # for actions/labeler to add labels to PRs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/labeler@v4
+    
+    - name: Harden Runner
+      uses: step-security/harden-runner@74b568e8591fbb3115c70f3436a0c6b0909a8504
+      with:
+        egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+    - uses: actions/labeler@df15476a7bb0685783a25352c10d689d2c8f232e
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
