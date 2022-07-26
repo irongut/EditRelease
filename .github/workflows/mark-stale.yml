@@ -23,7 +23,7 @@ jobs:
         egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
     - name: Mark Stale
-      uses: actions/stale@3cc123766321e9f15a6676375c154ccffb12a358
+      uses: actions/stale@532554b8a8498a0e006fbcde824b048728c4178f
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         exempt-all-milestones: true
