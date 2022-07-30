@@ -1,0 +1,59 @@
+name: CodeQL Scan
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '41 6 * * 5'
+
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@74b568e8591fbb3115c70f3436a0c6b0909a8504
+      with:
+        egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+    - name: Checkout repository
+      uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@74e8f231851deb9b54c3e408f88638dd39727868
+      with:
+        languages: ${{ matrix.language }}
+        # queries: security-extended,security-and-quality # https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+
+    - name: Setup .Net
+      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore Dependencies
+      run: dotnet restore src/EditRelease.sln
+
+    - name: Build EditRelease
+      run: dotnet build src/EditRelease.sln --configuration Release --no-restore
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@74e8f231851deb9b54c3e408f88638dd39727868
