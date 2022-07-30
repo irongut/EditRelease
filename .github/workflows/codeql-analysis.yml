@@ -53,7 +53,7 @@ jobs:
       run: dotnet restore src/EditRelease.sln
 
     - name: Build EditRelease
-      run: dotnet build src/EditRelease.sln --configuration Release --no-restore
+      run: dotnet build src/EditRelease.sln --configuration Release --no-restore /p:UseSharedCompilation=false
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@74e8f231851deb9b54c3e408f88638dd39727868
