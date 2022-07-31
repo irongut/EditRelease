@@ -1,6 +1,20 @@
-# Edit Release Action
+# Edit Release
+
+<div align="center">
+
+![.NET 6.0](https://img.shields.io/badge/Version-.NET%206.0-informational?style=flat&logo=dotnet)
+&nbsp;
+![Built With Docker](https://img.shields.io/badge/Built_With-Docker-informational?style=flat&logo=docker)
+&nbsp;
+[![CI Build](https://github.com/irongut/EditRelease/actions/workflows/ci-build.yml/badge.svg)](https://github.com/irongut/EditRelease/actions/workflows/ci-build.yml)
+&nbsp;
+[![CodeQL Scan](https://github.com/irongut/EditRelease/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/irongut/EditRelease/actions/workflows/codeql-analysis.yml)
+
+</div>
 
 A GitHub Action for editing an existing release. Edit the Name, Draft status and Pre-release status of a release as well as adding text and the content of markdown files to the Body of a release.
+
+Edit Release is compatible with [StepSecurity Secure Workflows](https://github.com/step-security/secure-workflows) and uses a Docker image that is cryptographically signed using [Sigstore](https://www.sigstore.dev/).
 
 As a Docker based action Edit Release requires a Linux runner, see [Types of Action](https://docs.github.com/en/actions/creating-actions/about-custom-actions#types-of-actions).
 
