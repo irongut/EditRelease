@@ -2,15 +2,15 @@ name: Assign PR to Author
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, ready_for_review, reopened]
 
 permissions:
   contents: read
 
 jobs:
-  assign-author:
+  assign-pr:
     permissions:
-      pull-requests: write  
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
     
@@ -22,6 +22,6 @@ jobs:
           api.github.com:443
 
     - name: Auto Assign PR
-      uses: samspills/assign-pr-to-author@b313feb250ff414d3aff26525b986f080ee7bd7a
+      uses: hkusu/review-assign-action@e7863d32a4c6fa2cbad35c5b44e62c34a151b59f
       with:
-        repo-token: '${{ secrets.GITHUB_TOKEN }}'
+        assignees: ${{ github.actor }}
