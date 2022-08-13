@@ -2,10 +2,15 @@ name: Assign PR to Author
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
+
+permissions:
+  contents: read
 
 jobs:
   assign-author:
+    permissions:
+      pull-requests: write  
     runs-on: ubuntu-latest
     steps:
     
