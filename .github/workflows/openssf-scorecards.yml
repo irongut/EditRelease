@@ -1,0 +1,50 @@
+name: OpenSSF Scorecards Scan
+on:
+  branch_protection_rule:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  workflow_dispatch:
+  schedule:
+    - cron: '21 21 * * 6'
+
+permissions: read-all
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # Needed to upload the results to code-scanning dashboard.
+      id-token: write         # Used to receive a badge. (Upcoming feature)
+      contents: read
+      actions: read
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+        with:
+          persist-credentials: false
+
+      - name: Scorecards Analysis
+        uses: ossf/scorecard-action@3e15ea8318eee9b333819ec77a36aca8d39df13e
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          repo_token: ${{ secrets.SCORECARDS_TOKEN }}
+          publish_results: true
+
+      - name: Upload Report
+        uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535
+        with:
+          name: SARIF file
+          path: results.sarif
+          retention-days: 5
+      
+      - name: Upload to Code-Scanning
+        uses: github/codeql-action/upload-sarif@5f532563584d71fdef14ee64d17bafb34f751ce5
+        with:
+          sarif_file: results.sarif
