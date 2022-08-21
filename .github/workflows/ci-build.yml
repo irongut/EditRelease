@@ -38,6 +38,9 @@ jobs:
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8
       with:
         dotnet-version: 6.0.x
+    
+    - name: Test Harden Runner
+      run: curl -X GET https://blog.taranissoftware.com/
 
     - name: Restore Dependencies
       run: dotnet restore src/EditRelease.sln
