@@ -18,7 +18,7 @@ jobs:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
-      security-events: write  # Needed to upload the results to code-scanning dashboard.
+      security-events: write  # needed to upload the results
       contents: read
       actions: read
     
@@ -26,7 +26,14 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@dd2c410b088af7c0dc8046f3ac9a8f4148492a95
         with:
-          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            api.osv.dev:443
+            bestpractices.coreinfrastructure.org:443
+            codeload.github.com:443
+            github.com:443
+            pipelines.actions.githubusercontent.com:443
 
       - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
