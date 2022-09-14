@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write  # Needed to upload the results to code-scanning dashboard.
-      id-token: write         # Used to receive a badge. (Upcoming feature)
       contents: read
       actions: read
     
@@ -40,7 +39,7 @@ jobs:
           results_file: results.sarif
           results_format: sarif
           repo_token: ${{ secrets.SCORECARDS_TOKEN }}
-          publish_results: true
+          publish_results: false  # true will not work with Harden Runner!
 
       - name: Upload Report
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8
