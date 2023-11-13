@@ -22,6 +22,6 @@ jobs:
           api.github.com:443
 
     - name: Auto Assign PR
-      uses: hkusu/review-assign-action@e7863d32a4c6fa2cbad35c5b44e62c34a151b59f
+      uses: hkusu/review-assign-action@58c5b8bd3299c53b08019031d18541e2c449ca0a
       with:
         assignees: ${{ github.actor }}
